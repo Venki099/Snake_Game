@@ -18,7 +18,7 @@ jobs:
       - name: 🐍 Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11.6'  # Match your local Python version
+          python-version: '3.10'  # Match your local Python version
 
       - name: 📦 Install PyInstaller
         run: |
