@@ -21,8 +21,8 @@ jobs:
 
       - name: 🛠️ Build Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/snake-game:latest .
+          docker build -t ghcr.io/venki099/snake-game:latest .
 
       - name: 📤 Push Docker image to GHCR
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/snake-game:latest
+          docker push ghcr.io/venki099/snake-game:latest
