@@ -1,16 +1,28 @@
-name: Test Upload Artifact
+name: Build and Push Snake Game Docker Image
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master ]  # or "main", whichever your branch is
 
 jobs:
-  test-upload:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Upload dummy artifact
-        uses: actions/upload-artifact@v3
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: 🔐 Log in to GitHub Container Registry
+        uses: docker/login-action@v2
         with:
-          name: dummy
-          path: README.md
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🛠️ Build Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/snake-game:latest .
+
+      - name: 📤 Push Docker image to GHCR
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/snake-game:latest
